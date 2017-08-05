@@ -2,8 +2,8 @@
 
 {
     'name': 'Invoice Debit Note',
-    'version': '1.0',
-    'author': 'Ecosoft',
+    'version': '1.0.0',
+    'author': 'OpenPyme, Ecosoft',
     'summary': 'Create Debit Note from Invoice',
     'description': """
 Use the similar concept as Refund. Debit Note is in
@@ -15,10 +15,10 @@ New type of journal has been created,
 Make sure the new Journal has been created for them (manually).
     """,
     'category': 'Accounting',
-    'website': 'http://www.ecosoft.co.th',
+    'website': 'http://www.openpyme.mx',
     'images': [],
     'depends': [
-        'account', 'sale', 'purchase',
+        'account',
         'account_refund_linked_invoice',
     ],
     'demo': [],
@@ -34,4 +34,3 @@ Make sure the new Journal has been created for them (manually).
     'application': True,
     'installable': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

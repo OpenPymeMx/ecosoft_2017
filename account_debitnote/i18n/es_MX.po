@@ -1,0 +1,284 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_debitnote
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0rc7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-05 20:32+0000\n"
+"PO-Revision-Date: 2017-08-05 15:40-0500\n"
+"Last-Translator: Agustín Cruz <agustin.cruz@openpyme.mx>\n"
+"Language-Team: \n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.3\n"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/wizard/account_debitnote.py:81
+#, python-format
+msgid ""
+" Cannot create debit note for\n"
+"                                 draft/proforma/cancel invoice."
+msgstr ""
+"No se puede crear una nota de débito para\n"
+"una factura proforma, en borrador o cancelada."
+
+#. module: account_debitnote
+#: help:account.debitnote,date:0
+msgid ""
+" This date will be used as the invoice date\n"
+"        for debit note and period will be chosen accordingly!"
+msgstr ""
+"La fecha se utilizará como fecha de la nota de débito\n"
+"el periodo se escogerá con base en esta fecha!"
+
+#. module: account_debitnote
+#: help:account.debitnote,journal_id:0
+msgid ""
+" You can select here the journal to use\n"
+"        for the debit note that will be created.\n"
+"        If you leave that field empty,\n"
+"        it will use the same journal as the current invoice."
+msgstr ""
+"Puede seleccionar el diario a utilizar\n"
+"para la nota de débito que se va a crear.\n"
+"Si deja el campo vacío,\n"
+"se usará el mismo diario que la factura actual."
+
+#. module: account_debitnote
+#: model:ir.actions.act_window,help:account_debitnote.account_invoice_action_customer_debit_note
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a customer debit note.\n"
+"              </p><p>\n"
+"                A debit note or debit memorandum (memo) is a document "
+"issued\n"
+"                by a customer to you as a means of formally requesting a\n"
+"                credit note.\n"
+"              </p><p>\n"
+"                You might also issue a debit note instead of an invoice\n"
+"                in order to adjust upwards the amount of an invoice already\n"
+"                issued (as if the invoice is recorded in wrong value).\n"
+"                In that case, instead of manually creating a debit note, "
+"you\n"
+"                can generate it directly from the related customer invoice.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Pulse para crear una nueva nota de débito.\n"
+"              </p><p>\n"
+"                Una nota de détibo o memorandum (memo) es un documento "
+"emitido\n"
+"                por un cliente como una forma de solicitar formalmente una.\n"
+"                nota de crédito.\n"
+"              </p><p>\n"
+"                También puede emitir una nota de débito en lugar de una "
+"factura\n"
+"                para ajustar hacia arriba el monto a pagar de una factura ya "
+"emitida\n"
+"                (por ejemplo, cuando el total de la factura está "
+"equivocado).\n"
+"                En ese caso, en lugar de generar manualmente la nota de "
+"débito,\n"
+"                puede generarla directamente desde la factura "
+"correspondiente.\n"
+"\n"
+"              </p>\n"
+"            "
+
+#. module: account_debitnote
+#: model:ir.actions.act_window,help:account_debitnote.account_invoice_action_supplier_debit_note
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a supplier debit note.\n"
+"              </p><p>\n"
+"                A debit not or memo is a document that you sent to a "
+"supplier,\n"
+"                notifying that a debit has been made to their accounts.\n"
+"              </p><p>\n"
+"                Instead of manually creating a supplier debit note, you\n"
+"                can generate it directly from the related customer invoice.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Pulse para crear una nueva nota de débito.\n"
+"              </p><p>\n"
+"                Una nota de débito o memo es un documento que manda a un "
+"proveedor\n"
+"                notificándole que ha realizado un débito en sus cuentas.\n"
+"              </p><p>\n"
+"                En lugar de crear manualmente una nota de débito, puede\n"
+"                generarla directamente desde la factura relacionada.\n"
+"              </p>\n"
+"            "
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/models/account_invoice.py:60
+#, python-format
+msgid "Can not create Debit Note from this document!"
+msgstr "!No se puede crear una Nota de Débito para este documento!"
+
+#. module: account_debitnote
+#: view:account.debitnote:account_debitnote.view_account_debitnote
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_debitnote
+#: view:account.debitnote:account_debitnote.view_account_debitnote
+msgid "Create Debit Note"
+msgstr "Crear Nota de Débito"
+
+#. module: account_debitnote
+#: field:account.debitnote,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_debitnote
+#: field:account.debitnote,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: account_debitnote
+#: view:account.debitnote:account_debitnote.view_account_debitnote
+msgid "Credit Note"
+msgstr "Nota de Crédito"
+
+#. module: account_debitnote
+#: model:ir.actions.act_window,name:account_debitnote.account_invoice_action_customer_debit_note
+#: model:ir.ui.menu,name:account_debitnote.account_invoice_menu_customer_debit_note
+msgid "Customer Debit Notes"
+msgstr "Notas de débito"
+
+#. module: account_debitnote
+#: field:account.debitnote,date:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: account_debitnote
+#: field:account.invoice,debit_invoice_ids:0
+msgid "Debit Documents"
+msgstr ""
+
+#. module: account_debitnote
+#: field:account.debitnote,journal_id:0
+msgid "Debit Journal"
+msgstr ""
+
+#. module: account_debitnote
+#: view:account.invoice:account_debitnote.account_invoice_view_form_customer
+#: view:account.invoice:account_debitnote.account_invoice_view_form_supplier
+#: field:account.invoice,is_debitnote:0
+msgid "Debit Note"
+msgstr ""
+
+#. module: account_debitnote
+#: model:ir.actions.act_window,name:account_debitnote.action_account_debitnote
+msgid "Debit Note Invoice"
+msgstr ""
+
+#. module: account_debitnote
+#: field:account.invoice,debited_amount:0
+msgid "Debited amount"
+msgstr ""
+
+#. module: account_debitnote
+#: view:account.invoice:account_debitnote.account_invoice_view_form_customer
+msgid "Debits"
+msgstr "Débitos"
+
+#. module: account_debitnote
+#: field:account.debitnote,display_name:0
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: account_debitnote
+#: view:account.invoice:account_debitnote.account_invoice_view_form_customer
+msgid "Draft Debit Note"
+msgstr "Nota de Débito Borrador"
+
+#. module: account_debitnote
+#: field:account.debitnote,period:0
+msgid "Force period"
+msgstr "Forzar periodo"
+
+#. module: account_debitnote
+#: field:account.debitnote,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_account_debitnote
+msgid "Invoice Debit Note"
+msgstr ""
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_debitnote
+#: field:account.debitnote,__last_update:0
+msgid "Last Modified on"
+msgstr "Última actualización el"
+
+#. module: account_debitnote
+#: field:account.debitnote,write_uid:0
+msgid "Last Updated by"
+msgstr "Ultima actualización por"
+
+#. module: account_debitnote
+#: field:account.debitnote,write_date:0
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/wizard/account_debitnote.py:132
+#, python-format
+msgid "No period found on the invoice."
+msgstr "No se encontró un periodo en la factura."
+
+#. module: account_debitnote
+#: view:account.invoice:account_debitnote.account_invoice_view_form_customer
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: account_debitnote
+#: field:account.debitnote,description:0
+msgid "Reason"
+msgstr "Rason"
+
+#. module: account_debitnote
+#: model:ir.actions.act_window,name:account_debitnote.account_invoice_action_supplier_debit_note
+#: model:ir.ui.menu,name:account_debitnote.account_invoice_menu_supplier_debit_note
+msgid "Supplier Debit Notes"
+msgstr "Notas de Débito"
+
+#. module: account_debitnote
+#: view:account.debitnote:account_debitnote.view_account_debitnote
+msgid "or"
+msgstr "o"
+
+#. module: account_debitnote
+#: view:account.invoice:account_debitnote.account_invoice_view_form_customer
+msgid ""
+"{'invisible': ['|','|',('state','in',('draft','proforma','proforma2')), "
+"('type','<>','out_invoice'), ('is_debitnote','<>',False)]}"
+msgstr ""
+
+#. module: account_debitnote
+#: view:account.invoice:account_debitnote.account_invoice_view_form_customer
+msgid ""
+"{'invisible': ['|','|',('state','not in',('draft',)), "
+"('type','<>','out_invoice'), ('is_debitnote','<>',False)]}"
+msgstr ""

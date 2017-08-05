@@ -2,8 +2,8 @@
 <openerp>
     <data>
 
-        <record id="invoice_form" model="ir.ui.view">
-            <field name="name">invoice.form.ext</field>
+        <record id="account_invoice_view_form_customer" model="ir.ui.view">
+            <field name="name">account.invoice.view.form.customer</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="account.invoice_form"/>
@@ -12,12 +12,16 @@
                     <xpath expr="/form" position="inside">
                         <field name="is_debitnote" invisible="True"/>
                     </xpath>
-                    <xpath expr="/form/sheet/h1/label[@string='Draft Invoice']" position="replace">
-                        <label string="Draft Invoice" attrs="{'invisible': ['|','|',('state','not in',('draft',)), ('type','&lt;&gt;','out_invoice'), ('is_debitnote','&lt;&gt;',False)]}"/>
+                    <xpath expr="//label[@string='Draft Invoice ']" position="attributes">
+                        <attribute name="attrs">{'invisible': ['|','|',('state','not in',('draft',)), ('type','&lt;&gt;','out_invoice'), ('is_debitnote','&lt;&gt;',False)]}</attribute>
+                    </xpath>
+                    <xpath expr="//label[@string='Draft Invoice ']" position="after">
                         <label string="Draft Debit Note" attrs="{'invisible': ['|','|',('state','not in',('draft',)), ('type','&lt;&gt;','out_invoice'), ('is_debitnote','&lt;&gt;',True)]}"/>
                     </xpath>
-                    <xpath expr="/form/sheet/h1/label[@string='Invoice']" position="replace">
-                        <label string="Invoice" attrs="{'invisible': ['|','|',('state','in',('draft','proforma','proforma2')), ('type','&lt;&gt;','out_invoice'), ('is_debitnote','&lt;&gt;',False)]}"/>
+                    <xpath expr="///label[@string='Invoice ']" position="attributes">
+                        <attribute name="attrs">{'invisible': ['|','|',('state','in',('draft','proforma','proforma2')), ('type','&lt;&gt;','out_invoice'), ('is_debitnote','&lt;&gt;',False)]}</attribute>
+                    </xpath>
+                    <xpath expr="///label[@string='Invoice ']" position="after">
                         <label string="Debit Note" attrs="{'invisible': ['|','|',('state','in',('draft','proforma','proforma2')), ('type','&lt;&gt;','out_invoice'), ('is_debitnote','&lt;&gt;',True)]}"/>
                     </xpath>
                     <button name="%(account.action_account_invoice_refund)d" position="after">
@@ -26,7 +30,7 @@
                     <page string="Payments" position="after" >
                         <page string="Debits" attrs="{'invisible': [('debited_amount','=',0)]}">
                             <group>
-                                   <field name="debited_amount" />
+                                <field name="debited_amount" />
                             </group>
                             <field name="debit_invoice_ids" />
                         </page>
@@ -35,8 +39,8 @@
             </field>
         </record>
 
-        <record id="invoice_supplier_form" model="ir.ui.view">
-            <field name="name">invoice.supplier.ext</field>
+        <record id="account_invoice_view_form_supplier" model="ir.ui.view">
+            <field name="name">account.invoice.view.form.supplier</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
@@ -47,17 +51,81 @@
             </field>
         </record>
 
-        <record id="view_account_invoice_filter" model="ir.ui.view">
-            <field name="name">view.account.invoice.filter.ext</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
-            <field name="arch" type="xml">
-                <search position="inside">
-                    <separator/>
-                    <filter name="debitnote" string="Debit Notes" domain="[('is_debitnote','=',True)]" help="Debit Note"/>
-                </search>
+        <record id="account_invoice_action_customer_debit_note" model="ir.actions.act_window">
+            <field name="name">Customer Debit Notes</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="form_view_id" ref="account.invoice_form"/>
+            <field name="domain">[('type', '=', 'out_invoice'), ('journal_id.type', '=', 'sale_debitnote')]</field>
+            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale_debitnote'}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a customer debit note.
+              </p><p>
+                A debit note or debit memorandum (memo) is a document issued
+                by a customer to you as a means of formally requesting a
+                credit note.
+              </p><p>
+                You might also issue a debit note instead of an invoice
+                in order to adjust upwards the amount of an invoice already
+                issued (as if the invoice is recorded in wrong value).
+                In that case, instead of manually creating a debit note, you
+                can generate it directly from the related customer invoice.
+              </p>
             </field>
         </record>
+
+        <record id="account_invoice_action_customer_debit_note_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="account_invoice_action_customer_debit_note"/>
+        </record>
+
+        <record id="account_invoice_action_customer_debit_note_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="act_window_id" ref="account_invoice_action_customer_debit_note"/>
+        </record>
+
+        <record id="account_invoice_action_supplier_debit_note" model="ir.actions.act_window">
+            <field name="name">Supplier Debit Notes</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[('type', '=', 'in_invoice'), ('journal_id.type', '=', 'purchase_debitnote')]</field>
+            <field name="context">{'default_type':'in_invoice', 'type':'in_invoice', 'journal_type': 'purchase_debitnote'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a supplier debit note.
+              </p><p>
+                A debit not or memo is a document that you sent to a supplier,
+                notifying that a debit has been made to their accounts.
+              </p><p>
+                Instead of manually creating a supplier debit note, you
+                can generate it directly from the related customer invoice.
+              </p>
+            </field>
+        </record>
+
+        <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="domain">[('type','=','out_invoice'), ('journal_id.type', '!=', 'sale_debitnote')]</field>
+        </record>
+
+        <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+            <field name="domain">[('type','=','in_invoice'), ('journal_id.type', '!=', 'purchase_debitnote')]</field>
+        </record>
+
+        <menuitem id="account_invoice_menu_customer_debit_note"
+            action="account_invoice_action_customer_debit_note"
+            parent="account.menu_finance_receivables"/>
+
+        <menuitem id="account_invoice_menu_supplier_debit_note"
+            action="account_invoice_action_supplier_debit_note"
+            parent="account.menu_finance_payables"/>
 
     </data>
 </openerp>

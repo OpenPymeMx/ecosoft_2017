@@ -128,29 +128,21 @@ class AccountInvoice(models.Model):
         return new_ids
 
     is_debitnote = fields.Boolean(
-        compute="_compute_is_debitnote",
-        string='Debit Note',
-        store=True,
-        )
+        compute='_compute_is_debitnote', string='Debit Note', store=True,
+    )
     origin_invoice_id = fields.Many2one(
-        'account.invoice',
-        string='Origin invoice',
-        readonly=True,
+        'account.invoice', string='Origin invoice', readonly=True,
         states={'draft': [('readonly', False)]},
-        )
+    )
     debited_amount = fields.Float(
         compute='_compute_debited_amount',
-        string='Debited Amount',
         digits_compute=dp.get_precision('Product Price'),
-        )
+    )
     debit_invoice_ids = fields.One2many(
-        'account.invoice',
-        'origin_invoice_id',
-        'Debit Documents',
+        'account.invoice', 'origin_invoice_id', 'Debit Documents',
         domain=[('type', '=', 'out_invoice')],
-        readonly=True,
-        copy=False,
-        )
+        readonly=True, copy=False,
+    )
 
     @api.multi
     @api.depends('journal_id', 'journal_id.type')
@@ -176,23 +168,26 @@ class AccountInvoice(models.Model):
             refunded_amount = sum([r.amount_untaxed for r in refund_ids])
             invoice.debited_amount = refunded_amount
 
-    @api.model
-    def fields_view_get(self, view_id=None, view_type=False,
-                        toolbar=False, submenu=False):
-        res = super(AccountInvoice, self).fields_view_get(
-            view_id=view_id, view_type=view_type,
-            toolbar=toolbar, submenu=submenu
+    def onchange_company_id(
+        self, cr, uid, ids, company_id, part_id, type, invoice_line,
+        currency_id, context=None,
+    ):
+        res = super(AccountInvoice, self).onchange_company_id(
+            cr, uid, ids, company_id, part_id, type, invoice_line,
+            currency_id,
+        )
+        val = res['value']
+        dom = res['domain']
+        context = dict(context or {})
+
+        journal_type = context.get('journal_type', False)
+        if company_id and journal_type:
+            journal_ids = self.pool.get('account.journal').search(
+                cr, uid,
+                [('company_id', '=', company_id), ('type', '=', journal_type)],
             )
-        journal_obj = self.env['account.journal']
-        type = self.env.context.get('journal_type', False)
-        for field in res['fields']:
-            if field == 'journal_id' and type in ('sale', 'purchase'):
-                # Add debit note type with sale type.
-                if type == 'sale':
-                    type = ('sale', 'sale_debitnote')
-                if type == 'purchase':
-                    type = ('purchase', 'purchase_debitnote')
-                journal_select = journal_obj._name_search(
-                    '', [('type', 'in', type)], limit=None, name_get_uid=1)
-                res['fields'][field]['selection'] = journal_select
-        return res
+            if journal_ids:
+                val['journal_id'] = journal_ids[0]
+            dom = {'journal_id':  [('id', 'in', journal_ids)]}
+
+        return {'value': val, 'domain': dom}
